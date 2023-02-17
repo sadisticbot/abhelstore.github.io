@@ -165,7 +165,10 @@
                         <div class="contact-info">
                             <h1>DATA CUSTOMER</h1>
                             <h2>SILAHKAN DI ISI JIKA BERMINAT</h2>
-                           
+                            <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                                <strong>THANKS YOU</strong> PESAN ANDA SUDAH KAMI TERIMA.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
                               <form name="data-store">
                                   <div class="controls">
                                       <input id="name" name="nama" type="text" class="span5" placeholder="ISI NAMA"> 
@@ -176,8 +179,8 @@
                                   </div>
 				      
                                   <div class="controls">
-                                      <button id="contact-submit" type="submit" class="btn">Submit</button>
-				      <button class="btn btn-primary" type="button" disabled>
+                                      <button id="contact-submit" type="submit" class="btn btn-submit">Submit</button>
+				      <button class="btn btn-primary btn-loading d-none" type="button" disabled>
                                         <span class="spinner-border spinner-border-sm" role="status"
 					aria-hidden="true"></span>
                                         Loading...
@@ -219,11 +222,27 @@ $('#myCarousel').carousel({
 <script>
   const scriptURL = 'https://script.google.com/macros/s/AKfycbwNnn_hv1_z5wInvDoYUKAKq1pCv9pmHsL9Yh4W0sua-VC4cfKBWBgymFlnImTx9DSbXQ/exec'
   const form = document.forms['data-store']
+  const btnSubmit = document.quertySelector('.btn-submit');
+  const btnLoading = document.quertySelector('.btn-loading');
+  const myAlert = document.quertySelector('.my-alert');
 
   form.addEventListener('submit', e => {
     e.preventDefault()
+    // ketika tombol submit diklik
+    // tampilkan tombol loading, hilangkan tombol kirim
+    btnLoading.classList.toggle('d-none');
+    btnKirim.classList.toggle('d-none');
     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => console.log('Success!', response))
+      .then(response => {
+	// tampilkan tombol kirim, hilangkan tombol loading
+	btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
+	// tampilkan alert
+	myAlert.classList.toggle('d-none');
+	// reset folmulir data
+	form.reset();
+	console.log('Success!', response)})
+	
       .catch(error => console.error('Error!', error.message))
   })
 </script>

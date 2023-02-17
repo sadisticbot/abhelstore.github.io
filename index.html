@@ -166,17 +166,15 @@
                             <h1>DATA CUSTOMER</h1>
                             <h2>SILAHKAN DI ISI JIKA BERMINAT</h2>
                            
-                              <form>
+                              <form name="data-store">
                                   <div class="controls">
-                                      <input id="name" name="name" type="text" class="span5" placeholder="Name here.."> 
-                                      <input id="email" name="email" type="email" class="span5" placeholder="Email here..">
+                                      <input id="name" name="nama" type="text" class="span5" placeholder="ISI NAMA"> 
+                                      <input id="email" name="email" type="email" class="span5" placeholder="ISI EMAIL">
                                   </div>
                                   <div class="controls">
-                                      <textarea id="message" name="message" class="span10" placeholder="Message here.." rows="5"></textarea>
+                                      <textarea id="message" name="pesan" class="span10" placeholder="ISI PESAN" rows="5"></textarea>
                                   </div>
-				  <div class="controls">
-				      <input id="noWA" type="hidden" name="noWA" value="6282258910703">
-				  </div>
+				      
                                   <div class="controls">
                                       <button id="contact-submit" type="submit" class="btn">Submit</button>
                                   </div>
@@ -213,5 +211,16 @@ $('#myCarousel').carousel({
 });
 </script>
 
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwNnn_hv1_z5wInvDoYUKAKq1pCv9pmHsL9Yh4W0sua-VC4cfKBWBgymFlnImTx9DSbXQ/exec'
+  const form = document.forms['data-store']
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => console.log('Success!', response))
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
     </body>
 </html>
